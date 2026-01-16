@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Analysis Index</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CRYPTO ANALYSIS INDEX</h1>
+        
+        <div class="content-wrapper index-content">
+            <!-- Navigation Section -->
+            <div class="tools-section">
+                <h2>AVAILABLE ANALYSIS TOOLS</h2>
+                
+                <div class="tools-grid">
+                    <a href="TRX_YieldAnalysis.html" class="tool-card" onclick="event.preventDefault(); navigateToTRXAnalysis();">
+                        <span class="tool-icon">📊</span>
+                        <h3 class="tool-title">TRX Staking Analysis</h3>
+                        <p class="tool-description">Comprehensive TRX staking and lending yield calculator with growth projections, APY calculations, and detailed breakdown reports.</p>
+                        <div class="tool-status">
+                            <span class="status-indicator-active"></span>
+                            <span class="status-text">Active</span>
+                        </div>
+                    </a>
+                    
+                    <!-- Future tools can be added here -->
+                    <div class="tool-card coming-soon">
+                        <span class="tool-icon">🚀</span>
+                        <h3 class="tool-title">More Tools Coming Soon</h3>
+                        <p class="tool-description">Additional cryptocurrency analysis tools are in development. Stay tuned for updates.</p>
+                        <div class="tool-status">
+                            <span class="status-indicator-pending"></span>
+                            <span class="status-text">In Development</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two Column Section: Overview and Data Sources -->
+            <div class="two-column-section">
+                <!-- Overview Section -->
+                <div class="card">
+                    <h2>OVERVIEW</h2>
+                    
+                    <div class="analysis-section">
+                        <h3>Purpose</h3>
+                        <p>This crypto analysis suite provides comprehensive tools for evaluating cryptocurrency investment opportunities, yield calculations, and growth projections.</p>
+                    </div>
+
+                    <div class="analysis-section">
+                        <h3>Features</h3>
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <span class="feature-label">TRX Staking Calculator:</span>
+                                <span class="feature-desc">Advanced staking rewards calculation with energy/bandwidth lending options</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-label">Growth Projections:</span>
+                                <span class="feature-desc">Period-by-period breakdown with compound interest calculations</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-label">APY Analysis:</span>
+                                <span class="feature-desc">Comprehensive Annual Percentage Yield calculations for various scenarios</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-label">Visualization Tools:</span>
+                                <span class="feature-desc">Interactive charts and tables for data analysis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Sources Section -->
+                <div class="card">
+                    <h2>DATA SOURCES & METHODOLOGY</h2>
+                    
+                    <div class="analysis-section">
+                        <h3>Real-time Data</h3>
+                        <div class="data-source-list">
+                            <div class="data-item">
+                                <span class="data-label">TRX Price:</span>
+                                <span class="data-desc">Live pricing from CoinGecko API</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">Network Parameters:</span>
+                                <span class="data-desc">TRON network statistics from Tronscan API</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">Super Representative Yields:</span>
+                                <span class="data-desc">Current staking rewards from active SRs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-section">
+                        <h3>Calculation Methods</h3>
+                        <p>All calculations use compound interest formulas with configurable claim frequencies. Growth projections account for reinvestment strategies and additional principal contributions over time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+</html>
