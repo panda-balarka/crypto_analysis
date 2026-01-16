@@ -25,7 +25,11 @@
     
     /* Responsive Base Unit System */
     /* Base unit scales from 1.8px on 14" screens (1366px) to larger/smaller on other sizes */
-    --base-unit: clamp(1.2px, 0.132vw, 2.4px);
+    /* Enhanced for better scaling across common resolutions */
+    --base-unit: clamp(1.0px, 0.125vw, 2.2px);
+    
+    /* Viewport scaling factor for different screen sizes */
+    --viewport-scale: 1;
     
     /* Derived spacing units */
     --space-xs: calc(var(--base-unit) * 2);     /* ~3.6px */
@@ -117,6 +121,70 @@ h1::before {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-4xl);
     align-items: start;
+}
+
+/* Viewport Scaling for Common Screen Sizes */
+/* 1920x1080 Desktop - Scale down to fit content */
+@media (min-width: 1900px) and (max-width: 1920px) and (min-height: 1060px) and (max-height: 1100px) {
+    :root {
+        --viewport-scale: 0.85;
+        --base-unit: clamp(1.0px, 0.11vw, 1.9px);
+    }
+}
+
+/* Broader 1920x1080 coverage for slight variations */
+@media (min-width: 1880px) and (max-width: 1950px) and (min-height: 1050px) and (max-height: 1110px) {
+    :root {
+        --viewport-scale: 0.86;
+        --base-unit: clamp(1.05px, 0.115vw, 1.95px);
+    }
+}
+
+/* 1680x1050 Desktop - Common widescreen */
+@media (min-width: 1650px) and (max-width: 1700px) and (min-height: 1030px) and (max-height: 1070px) {
+    :root {
+        --viewport-scale: 0.9;
+        --base-unit: clamp(1.1px, 0.115vw, 2.0px);
+    }
+}
+
+/* 1600x900 Desktop - Common 16:9 */
+@media (min-width: 1580px) and (max-width: 1620px) and (min-height: 880px) and (max-height: 920px) {
+    :root {
+        --viewport-scale: 0.92;
+        --base-unit: clamp(1.1px, 0.118vw, 2.0px);
+    }
+}
+
+/* 1440x900 Desktop - Common MacBook Air size */
+@media (min-width: 1420px) and (max-width: 1460px) and (min-height: 880px) and (max-height: 920px) {
+    :root {
+        --viewport-scale: 0.95;
+        --base-unit: clamp(1.15px, 0.12vw, 2.1px);
+    }
+}
+
+/* 1366x768 Laptop - Very common laptop resolution */
+@media (min-width: 1350px) and (max-width: 1380px) and (min-height: 750px) and (max-height: 780px) {
+    :root {
+        --viewport-scale: 0.98;
+        --base-unit: clamp(1.15px, 0.125vw, 2.1px);
+    }
+}
+
+/* Large screens 2560x1440 and above - Scale down significantly */
+@media (min-width: 2500px) {
+    :root {
+        --viewport-scale: 0.75;
+        --base-unit: clamp(0.9px, 0.095vw, 1.8px);
+    }
+}
+
+/* Ultra-wide screens - Additional horizontal scaling */
+@media (min-aspect-ratio: 21/9) and (min-width: 2500px) {
+    :root {
+        --viewport-scale: 0.7;
+    }
 }
 
 /* Responsive Design - Multiple Breakpoints with Base Unit Scaling */
