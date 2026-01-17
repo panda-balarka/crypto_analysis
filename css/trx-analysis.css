@@ -315,7 +315,7 @@ h1::before {
         0 calc(var(--base-unit) * 5) calc(var(--base-unit) * 14) rgba(0,0,0,0.8),
         inset 0 1px 0 rgba(255,255,255,0.03);
     backdrop-filter: blur(calc(var(--base-unit) * 5));
-    overflow: hidden;
+    overflow: visible;
     position: relative;
 }
 
@@ -916,7 +916,7 @@ input:checked + .toggle-slider:before {
 }
 
 .address-input {
-    flex: 3;
+    flex: 2.2;
     min-width: 0;
     background: rgba(255,255,255,0.04);
     background-image: linear-gradient(180deg, rgba(60, 60, 70, 0.2) 0%, transparent 100%);
@@ -1096,7 +1096,7 @@ input:checked + .toggle-slider:before {
     border-radius: var(--radius-md);
     padding: calc(var(--space-xl) * 0.85);
     margin-bottom: var(--space-xl);
-    overflow: hidden;
+    overflow: visible;
     box-sizing: border-box;
 }
 
@@ -1172,6 +1172,65 @@ input:checked + .toggle-slider:before {
     background-repeat: no-repeat;
     background-size: 1.5em 1.5em;
     padding-right: calc(var(--space-lg) * 2.2);
+}
+
+/* Comprehensive dropdown option styling for cross-browser compatibility */
+#claimFrequency option,
+#investmentFrequency option,
+#growthPeriod option,
+select option {
+    background-color: rgba(10, 10, 10, 0.95) !important;
+    background: rgba(10, 10, 10, 0.95) !important;
+    color: var(--text) !important;
+    padding: calc(var(--space-sm) * 1.0) calc(var(--space-md) * 1.0) !important;
+    border: none !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: calc(var(--base-unit) * 5.1) !important;
+}
+
+/* Hover and selected states for dropdown options */
+#claimFrequency option:hover,
+#investmentFrequency option:hover,
+#growthPeriod option:hover,
+select option:hover {
+    background-color: rgba(86, 156, 214, 0.3) !important;
+    background: rgba(86, 156, 214, 0.3) !important;
+    color: var(--text) !important;
+}
+
+#claimFrequency option:checked,
+#investmentFrequency option:checked,
+#growthPeriod option:checked,
+select option:checked {
+    background-color: rgba(86, 156, 214, 0.4) !important;
+    background: rgba(86, 156, 214, 0.4) !important;
+    color: var(--text) !important;
+    font-weight: 600 !important;
+}
+
+/* Force styling on all select elements in the application */
+select {
+    color-scheme: dark !important;
+}
+
+/* WebKit specific dropdown styling */
+select::-webkit-scrollbar {
+    width: calc(var(--space-xs) * 1.2);
+}
+
+select::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: calc(var(--radius-sm) * 0.5);
+}
+
+select::-webkit-scrollbar-thumb {
+    background: rgba(86, 156, 214, 0.3);
+    border-radius: calc(var(--radius-sm) * 0.5);
+    transition: background 0.2s ease;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+    background: rgba(86, 156, 214, 0.5);
 }
 
 /* Lending Toggle States */
@@ -1545,8 +1604,8 @@ button:active {
     padding: calc(var(--base-unit) * 12);
     border-radius: calc(var(--radius-xl) * 1.0);
     border: 1px solid var(--border);
-    max-width: 90%;
-    width: calc(var(--base-unit) * 600);
+    max-width: 95%;
+    width: calc(var(--base-unit) * 800);
     max-height: 80vh;
     overflow-y: auto;
 }
@@ -1667,6 +1726,8 @@ button:active {
 #additionalInvestmentHelp:hover::after,
 #stakingSplitHelp:hover::after,
 #lendingHelp:hover::after,
+#fetchDataHelp:hover::after,
+#trxGrowthHelp:hover::after,
 .result-label [title]:hover::after,
 .result-label span[title]:hover::after,
 #lendingColumn .help-icon:hover::after,
@@ -1693,12 +1754,11 @@ button:active {
     border-radius: calc(var(--space-sm) * 1.5) !important;
     border: calc(var(--base-unit) * 1.0) solid #cccccc !important;
     font-size: calc(var(--font-xs) * 0.95) !important;
-    white-space: nowrap !important;
+    white-space: normal !important;
     z-index: 9999 !important;
     box-shadow: 0 calc(var(--space-sm) * 1.1) var(--space-2xl) rgba(0,0,0,0.9) !important;
     font-family: 'JetBrains Mono', monospace !important;
     max-width: calc(var(--base-unit) * 140) !important;
-    white-space: normal !important;
     pointer-events: none !important;
     opacity: 1 !important;
     display: block !important;
@@ -1713,6 +1773,8 @@ button:active {
 #additionalInvestmentHelp:hover::before,
 #stakingSplitHelp:hover::before,
 #lendingHelp:hover::before,
+#fetchDataHelp:hover::before,
+#trxGrowthHelp:hover::before,
 .result-label [title]:hover::before,
 .result-label span[title]:hover::before,
 #lendingColumn .help-icon:hover::before,
@@ -1870,6 +1932,68 @@ button:active {
 .results-grid .result-item:nth-child(13) .result-label [title]:hover::before,
 .results-grid .result-item:nth-child(13) .result-label span[title]:hover::before {
     bottom: 110% !important;
+    left: auto !important;
+    right: 20% !important;
+    transform: translateX(0) !important;
+}
+
+/* Ensure all containers with tooltips allow overflow for tooltip display */
+.input-group,
+.input-wrapper,
+.lending-inputs,
+.staking-content,
+.additional-investment-content,
+.lending-block,
+.input-column {
+    overflow: visible !important;
+}
+
+/* Ensure grid containers also allow tooltip overflow */
+[style*="display: grid"] {
+    overflow: visible !important;
+}
+
+/* Additional specific containers that might clip tooltips */
+.price-address-row,
+.address-input-section,
+.yield-input-wrapper {
+    overflow: visible !important;
+}
+
+/* Fetch Data Help tooltip positioning - positioned to the right of question mark with double width */
+#fetchDataHelp:hover::after {
+    bottom: auto !important;
+    left: 100% !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin-left: calc(var(--space-sm) * 1.5) !important;
+    max-width: calc(var(--base-unit) * 280) !important;
+    white-space: normal !important;
+}
+
+#fetchDataHelp:hover::before {
+    bottom: auto !important;
+    left: 94% !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    border-top: calc(var(--space-sm) * 1.1) solid transparent !important;
+    border-bottom: calc(var(--space-sm) * 1.1) solid transparent !important;
+    border-right: calc(var(--space-sm) * 1.1) solid #000000 !important;
+    border-left: none !important;
+}
+
+/* TRX Growth Help tooltip positioning - prevent right edge cutoff */
+#trxGrowthHelp:hover::after {
+    bottom: 130% !important;
+    left: auto !important;
+    right: 0% !important;
+    transform: translateX(0) !important;
+    max-width: calc(var(--base-unit) * 280) !important;
+    white-space: normal !important;
+}
+
+#trxGrowthHelp:hover::before {
+    bottom: 120% !important;
     left: auto !important;
     right: 20% !important;
     transform: translateX(0) !important;

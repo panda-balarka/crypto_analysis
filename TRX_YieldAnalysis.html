@@ -30,7 +30,7 @@
                     
                     <!-- TRX Address Input -->
                     <div class="address-input-section" id="addressInputSection">
-                        <div class="address-label">TRX Address to pre-fetch data for some feilds below</div>
+                        <div class="address-label">TRX Address to pre-fetch data for some feilds below <span id="fetchDataHelp" style="cursor: pointer; font-size: 0.75rem; color: var(--comment);" title="Fetch Data will auto-fill: Stake TRX Amount, Yield based on votes and SR APY, Current Energy/Bandwidth Split and Parameters">(?)</span></div>
                         <div class="address-input-wrapper">
                             <input type="text" id="trxAddress" placeholder="Enter TRX public address (T...)" class="address-input" disabled>
                             <button type="button" class="fetch-data-btn" id="fetchDataBtn" onclick="fetchTRXData()" disabled>Fetch Data</button>
@@ -131,7 +131,7 @@
                     <!-- Second Column: Restructured Layout -->
                     <div class="input-column" id="stakingSplitColumn">
                         <!-- Row Block 1: Current Split and Restake Split side by side -->
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16.2px; margin-bottom: 2px; margin-top: calc(var(--base-unit) * -2.8);">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16.2px; margin-bottom: calc(var(--base-unit) * -0.56); margin-top: calc(var(--base-unit) * -2.8);">
                             <!-- Current Staking Block -->
                             <div class="lending-block">
                                 <h4>Current Staking <span style="cursor: pointer; font-size: 0.75rem; color: var(--comment);" title="Requires TRX amount > 0">(?)</span></h4>
@@ -268,7 +268,7 @@
                         
                             <!-- TRX Growth Inputs Block - separate from lending -->
                             <div class="lending-block">
-                                <h4>TRX Growth Inputs</h4>
+                                <h4>TRX Growth Inputs <span id="trxGrowthHelp" style="cursor: pointer; font-size: 0.75rem; color: var(--comment);" title="Project TRX/USD price appreciation or depreciation over your investment duration to calculate future value impact">(?)</span></h4>
                                 <div class="input-group">
                                     <div class="toggle-wrapper">
                                         <span class="toggle-label">disabled</span>
@@ -492,19 +492,19 @@
                         <!-- Column 2: Available Resources -->
                         <div>
                             <div class="network-item">
-                                <span class="network-label">Energy Initial:</span>
+                                <span class="network-label">Account Energy Initial:</span>
                                 <span class="network-value" id="energyAvailable">0</span>
                             </div>
                             <div class="network-item">
-                                <span class="network-label">Bandwidth Initial:</span>
+                                <span class="network-label">Account Bandwidth Initial:</span>
                                 <span class="network-value" id="bandwidthAvailable">0</span>
                             </div>
                             <div class="network-item">
-                                <span class="network-label">Energy Final:</span>
+                                <span class="network-label">Account Energy Final:</span>
                                 <span class="network-value" id="energyFinal">0</span>
                             </div>
                             <div class="network-item">
-                                <span class="network-label">Bandwidth Final:</span>
+                                <span class="network-label">Account Bandwidth Final:</span>
                                 <span class="network-value" id="bandwidthFinal">0</span>
                             </div>
                         </div>
@@ -554,24 +554,24 @@
 
     <!-- Custom Error Modal -->
     <div id="errorModal" class="modal-overlay" style="display: none;">
-        <div class="modal-content" style="max-width: calc(var(--base-unit) * 289); margin: 25vh auto; padding: calc(var(--space-md) * 1.11) calc(var(--space-lg) * 0.93);">
+        <div class="modal-content" style="max-width: calc(var(--base-unit) * 450); margin: 25vh auto; padding: calc(var(--space-md) * 1.11) calc(var(--space-lg) * 0.93);">
             <div style="display: flex; align-items: center; gap: calc(var(--space-sm) * 1.22);">
                 <div id="errorMessage" style="flex: 1; font-size: calc(var(--font-sm) * 1.43); line-height: 1.2; color: var(--text);">
                     <!-- Error message will be populated here -->
                 </div>
-                <span onclick="closeErrorModal()" style="color: var(--muted); font-size: calc(var(--space-lg) * 0.93); cursor: pointer; width: calc(var(--space-md) * 1.11); height: calc(var(--space-md) * 1.11); display: flex; align-items: center; justify-content: center; flex-shrink: 0;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">&times;</span>
+                <span onclick="closeErrorModal()" style="color: var(--muted); font-size: calc(var(--space-lg) * 1.209); cursor: pointer; width: calc(var(--space-md) * 1.443); height: calc(var(--space-md) * 1.443); display: flex; align-items: center; justify-content: center; flex-shrink: 0;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">&times;</span>
             </div>
         </div>
     </div>
 
     <!-- Custom Success Modal -->
     <div id="successModal" class="modal-overlay" style="display: none;">
-        <div class="modal-content" style="max-width: calc(var(--base-unit) * 289); margin: 25vh auto; padding: calc(var(--space-md) * 1.11) calc(var(--space-lg) * 0.93);">
+        <div class="modal-content" style="max-width: calc(var(--base-unit) * 450); margin: 25vh auto; padding: calc(var(--space-md) * 1.11) calc(var(--space-lg) * 0.93);">
             <div style="display: flex; align-items: center; gap: calc(var(--space-sm) * 1.22);">
                 <div id="successMessage" style="flex: 1; font-size: calc(var(--font-sm) * 1.43); line-height: 1.2; color: var(--text);">
                     <!-- Success message will be populated here -->
                 </div>
-                <span onclick="closeSuccessModal()" style="color: var(--muted); font-size: calc(var(--space-lg) * 0.93); cursor: pointer; width: calc(var(--space-md) * 1.11); height: calc(var(--space-md) * 1.11); display: flex; align-items: center; justify-content: center; flex-shrink: 0;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">&times;</span>
+                <span onclick="closeSuccessModal()" style="color: var(--muted); font-size: calc(var(--space-lg) * 1.209); cursor: pointer; width: calc(var(--space-md) * 1.443); height: calc(var(--space-md) * 1.443); display: flex; align-items: center; justify-content: center; flex-shrink: 0;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">&times;</span>
             </div>
         </div>
     </div>

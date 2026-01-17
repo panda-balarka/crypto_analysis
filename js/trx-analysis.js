@@ -1218,6 +1218,9 @@ function calculateYield() {
     
     // Handle edge cases: if time is 0, show current amount only
     if (years === 0 && months === 0) {
+        // Show warning popup for calculation without duration
+        customAlert('⚠️ Calculate used without duration - showing current values only');
+        
         let totalWithInvestments = trxAmount;
         if (additionalInvestment.frequencyDays > 0 && additionalInvestment.amountTRX > 0) {
             // Add all investments without compounding since no time
@@ -1750,6 +1753,46 @@ function calculateYield() {
     
     // Add highlighting effect to important results
     highlightImportantResults();
+    
+    // Update calculation button states
+    updateCalculationButtonStates();
+}
+
+// Update the state of calculation buttons based on whether duration is set
+function updateCalculationButtonStates() {
+    const years = parseInt(document.getElementById('years').value) || 0;
+    const months = parseInt(document.getElementById('months').value) || 0;
+    const hasDuration = years > 0 || months > 0;
+    const hasBreakdown = window.calculationBreakdown && window.calculationBreakdown.length > 0;
+    
+    const tableButton = document.querySelector('button[onclick="showCalculationsModal()"]');
+    const graphButton = document.querySelector('button[onclick="showGraphModal()"]');
+    
+    if (tableButton && graphButton) {
+        if (hasDuration && hasBreakdown) {
+            // Enable buttons
+            tableButton.disabled = false;
+            tableButton.style.opacity = '1';
+            tableButton.style.cursor = 'pointer';
+            tableButton.style.pointerEvents = 'auto';
+            
+            graphButton.disabled = false;
+            graphButton.style.opacity = '1';
+            graphButton.style.cursor = 'pointer';
+            graphButton.style.pointerEvents = 'auto';
+        } else {
+            // Disable buttons
+            tableButton.disabled = true;
+            tableButton.style.opacity = '0.5';
+            tableButton.style.cursor = 'not-allowed';
+            tableButton.style.pointerEvents = 'none';
+            
+            graphButton.disabled = true;
+            graphButton.style.opacity = '0.5';
+            graphButton.style.cursor = 'not-allowed';
+            graphButton.style.pointerEvents = 'none';
+        }
+    }
 }
 
 function updateResults(initial, additionalPrincipal, invested, rewards, total, combinedApy, lendingIncome = 0, stakingApy = 0, lendingApy = 0, energyIncome = 0, bandwidthIncome = 0, growthParams = null, initialTRXPrice = 0, totalDays = 0) {
@@ -2030,9 +2073,8 @@ function highlightImportantResults() {
 
 // Modal functions
 function showCalculationsModal() {
-    // Check if calculation breakdown exists
+    // Check if calculation breakdown exists - but don't show alert since button should be disabled
     if (!window.calculationBreakdown || window.calculationBreakdown.length === 0) {
-        customAlert('Please run a calculation with duration to see the breakdown.');
         return;
     }
     
@@ -2041,9 +2083,8 @@ function showCalculationsModal() {
 }
 
 function showGraphModal() {
-    // Check if calculation breakdown exists
+    // Check if calculation breakdown exists - but don't show alert since button should be disabled
     if (!window.calculationBreakdown || window.calculationBreakdown.length === 0) {
-        customAlert('Please run a calculation with duration to see the graph.');
         return;
     }
     
@@ -2484,6 +2525,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize claim frequency layout
     toggleCustomDays();
+    
+    // Initialize calculation button states
+    updateCalculationButtonStates();
     
     // Add enter key support
     const inputs = document.querySelectorAll('input');
