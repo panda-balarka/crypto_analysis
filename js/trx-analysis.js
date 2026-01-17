@@ -378,6 +378,31 @@ async function fetchTRXData() {
             updateStakingSplit();
             validateSplitValues();
             updateEnergyBandwidthDisplay();
+        } else {
+            // Show warning popup for zero staked amount
+            customAlert('⚠️ Fetched address has no staked/frozen TRX - setting current amount to 0');
+            
+            // Set all amounts to zero
+            document.getElementById('trxAmount').value = '0';
+            
+            // Switch to values mode for staking split
+            const stakingSplitCheckbox = document.getElementById('stakingSplitMode');
+            if (!stakingSplitCheckbox.checked) {
+                stakingSplitCheckbox.checked = true;
+                toggleStakingMode(); // This will show the values mode
+            }
+            
+            // Set individual energy and bandwidth amounts to zero
+            document.getElementById('energyAmount').value = '0';
+            document.getElementById('bandwidthAmount').value = '0';
+            
+            // Clear yield input
+            document.getElementById('stakingYield').value = '';
+            
+            // Trigger form updates
+            updateStakingSplit();
+            validateSplitValues();
+            updateEnergyBandwidthDisplay();
         }
         
     } catch (error) {
@@ -1815,23 +1840,15 @@ function updateResults(initial, additionalPrincipal, invested, rewards, total, c
     document.getElementById('lendingApy').textContent = formatNumber(lendingApy, 2) + '%';
     document.getElementById('combinedApy').textContent = formatNumber(combinedApy, 2) + '%';
     
-    // Update Growth Rate display
+    // Update Growth Rate display - convert to annualized rate
     let growthRateText = '0%';
     if (growthParams && growthParams.enabled && growthParams.rate > 0) {
-        const ratePercent = (growthParams.rate * 100).toFixed(1);
-        let periodText = '';
-        
-        switch (growthParams.periodDays) {
-            case 30: periodText = 'Monthly'; break;
-            case 90: periodText = 'Quarterly'; break;
-            case 180: periodText = 'Half Yearly'; break;
-            case 365: periodText = 'Yearly'; break;
-            default: periodText = `Every ${growthParams.periodDays} days`; break;
-        }
-        
-        growthRateText = `${ratePercent}% ${periodText}`;
+        // Convert to annualized rate: (1 + rate)^(365/periodDays) - 1
+        const annualizedRate = Math.pow(1 + growthParams.rate, 365 / growthParams.periodDays) - 1;
+        const annualizedPercent = (annualizedRate * 100).toFixed(1);
+        growthRateText = `${annualizedPercent}%`;
     }
-    document.getElementById('growthRate').textContent = growthRateText;
+    document.getElementById('growthRateOutput').textContent = growthRateText;
     
     // Update final energy and bandwidth based on total amount
     updateFinalEnergyBandwidth(total);
